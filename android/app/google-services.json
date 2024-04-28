@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "659467617531",
+    "project_id": "canteenapplication-2f10c",
+    "storage_bucket": "canteenapplication-2f10c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659467617531:android:4c9fee6f48e5d2b6d55c5e",
+        "android_client_info": {
+          "package_name": "com.project.campuscrave"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659467617531-ciuig7llc4d70iog3c80e0qp9q9eu5kt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.campuscrave",
+            "certificate_hash": "7850ce32f7235006dd546e2fed5bbacb4d81de49"
+          }
+        },
+        {
+          "client_id": "659467617531-mhbnaf90h9to41a3pgps134lck7m2vsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIoQhidVbwV-WU2xTSYB6Ct_dW0W4Dt9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659467617531-mhbnaf90h9to41a3pgps134lck7m2vsi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "659467617531-aajg1nas337c3mposfi4lk5urk5bng15.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.project.campuscrave"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
