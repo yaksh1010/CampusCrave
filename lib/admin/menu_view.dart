@@ -117,7 +117,7 @@ class _FoodItemTileState extends State<FoodItemTile> {
           style: TextStyle(fontSize: 18),
         ),
         subtitle: Text(
-          'Price: \$${widget.foodItem['Price']}',
+          'Price: \₹${widget.foodItem['Price']}',
           style: TextStyle(fontSize: 16),
         ),
         trailing: Switch(
@@ -134,7 +134,10 @@ class _FoodItemTileState extends State<FoodItemTile> {
   }
 
   void _updateDisplayStatus(bool newValue) {
-    FirebaseFirestore.instance.collection(widget.foodItem.reference.parent!.id).doc(widget.foodItem.id).update({
+    FirebaseFirestore.instance
+        .collection(widget.foodItem.reference.parent!.id)
+        .doc(widget.foodItem.id)
+        .update({
       'isDisplayed': newValue,
     });
   }

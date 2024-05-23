@@ -55,7 +55,7 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AdminBottomNav()));
+                              builder: (context) => const AdminLogin()));
                     },
                     child: const Text(
                       "ADMIN",

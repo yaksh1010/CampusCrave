@@ -1,100 +1,105 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
-class AdminOrderPage extends StatefulWidget {
+class AdminOrders extends StatefulWidget {
+  const AdminOrders({Key? key}) : super(key: key);
+
   @override
-  _AdminOrderPageState createState() => _AdminOrderPageState();
+  _AdminOrdersState createState() => _AdminOrdersState();
 }
 
-class _AdminOrderPageState extends State<AdminOrderPage> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class _AdminOrdersState extends State<AdminOrders> {
+  late Stream<QuerySnapshot> ordersStream;
 
-  Future<List<Map<String, dynamic>>> getCartData() async {
-    List<Map<String, dynamic>> cartDataList = [];
-
-    // Fetch orders with status 'pending'
-    QuerySnapshot ordersSnapshot = await _firestore
-        .collection('Orders')
-        .where('Status', isEqualTo: 'pending')
-        .get();
-
-    // Iterate over each order document
-    for (QueryDocumentSnapshot orderDoc in ordersSnapshot.docs) {
-      // Get order data and add it to the list
-      cartDataList.add({
-        'OrderID': orderDoc.id,
-        'UserName': orderDoc.get('UserName'),
-        'CartItem': {
-          'Name': orderDoc.get('Name'),
-          'Quantity': orderDoc.get('Quantity'),
-          'Total': orderDoc.get('Total'),
-        },
-      });
-    }
-
-    return cartDataList;
-  }
-
-  // Function to mark an order as completed
-  void markOrderAsCompleted(String orderId) {
-    _firestore.collection('Orders').doc(orderId).update({'Status': 'completed'});
-    // Refresh UI to reflect changes
-    setState(() {});
+  @override
+  void initState() {
+    super.initState();
+    ordersStream =
+        FirebaseFirestore.instance.collection("FinalOrders").snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Order'),
+        title: Text('Admin Orders'),
       ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: getCartData(),
-        builder: (context, snapshot) {
+      body: StreamBuilder(
+        stream: ordersStream,
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.hasError) {
+          }
+
+          if (snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(
-              child: Text('No pending orders.'),
+              child: Text('No orders available.'),
             );
           }
 
-          List<Map<String, dynamic>> cartDataList = snapshot.data!;
-
           return ListView.builder(
-            itemCount: cartDataList.length,
+            itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              Map<String, dynamic> cartData = cartDataList[index];
-              String orderId = cartData['OrderID'];
-              String userName = cartData['UserName'];
-              Map<String, dynamic> cartItem = cartData['CartItem'];
-
-              // Display order details
+              DocumentSnapshot order = snapshot.data!.docs[index];
+              
+            
               return Card(
-                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                elevation: 4,
-                child: ListTile(
-                  title: Text('User Name: $userName'),
-                  subtitle: Column(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                elevation: 3,
+                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                color: Colors.lightBlue[100],
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Name: ${cartItem['Name']}'),
-                      Text('Quantity: ${cartItem['Quantity']}'),
-                      Text('Total: ${cartItem['Total']}'),
+                      Text(
+                        'Order ID: ${order['OrderID']}',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      Text('Name: ${order['itemName']}'),
+                      Text('Total Amount: ₹${order['total']}'),
+                      SizedBox(height: 8),
+                      
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              // Handle "Ready" button press
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white,
+                            ),
+                            child: Text('Ready'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Handle "Delivered" button press
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red,
+                              foregroundColor: Colors.white,
+                            ),
+                            child: Text('Delivered'),
+                          ),
+                        ],
+                      ),
                     ],
-                  ),
-                  trailing: ElevatedButton(
-                    onPressed: () {
-                      // Mark order as completed when button is pressed
-                      markOrderAsCompleted(orderId);
-                    },
-                    child: Text('Mark Completed'),
                   ),
                 ),
               );
@@ -104,10 +109,4 @@ class _AdminOrderPageState extends State<AdminOrderPage> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: AdminOrderPage(),
-  ));
 }

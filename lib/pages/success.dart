@@ -1,45 +1,76 @@
-import "dart:math";
-import "package:campuscrave/pages/bottomnav.dart";
-import "package:flutter/material.dart";
+import 'package:campuscrave/pages/bottomnav.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
+class Success extends StatefulWidget {
+  final String userId;
+  final String orderCode; // Receive the user ID as a parameter
 
-class Order1 {
-  late String order_no;
+  const Success({Key? key, required this.userId, required this.orderCode})
+      : super(key: key);
 
-  Order1() {
-    var random = Random();
-    order_no = 'Order_${random.nextInt(100)}';
-  }
+  @override
+  _SuccessState createState() => _SuccessState();
 }
-var order = Order1();
 
-class Success extends StatelessWidget {
-   Success({super.key});
+class _SuccessState extends State<Success> {
+  late Stream<QuerySnapshot> ordersStream;
 
-  
+  @override
+  void initState() {
+    super.initState();
+    // Query the FinalOrders collection based on the user's ID
+    ordersStream = FirebaseFirestore.instance
+        .collection("FinalOrders")
+        .where('userId', isEqualTo: widget.userId)
+        .snapshots();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          
-          padding:  EdgeInsets.all(20),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Success'),
+      ),
+      body: StreamBuilder(
+        stream: ordersStream,
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
 
-          //column
-          child:  Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Text('No orders available.'),
+            );
+          }
+
+          // Only one order is expected, so no need for ListView.builder
+          DocumentSnapshot order = snapshot.data!.docs[0];
+
+          String orderCode = order['OrderID'];
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               //Section 1
-        
-               const Image(
+
+              const Image(
                   image: AssetImage("images/success.gif"),
                   width: 300,
-                  height: 400),
-              //sectin 2
+                  height: 350),
 
-               const Align(
+              //sectiion 2
+              const Align(
                 alignment: Alignment.center,
                 child: Text(
                   "Payment Successful!",
@@ -47,49 +78,51 @@ class Success extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-               Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                      order.order_no,
-                      style: const TextStyle(fontSize: 30))),
-               const SizedBox(
-                height: 20,
-              ),
-              const Align(
+              Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "\t\t\t\t\tYour order is being prepared!!! \nShow your order number at counter",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-                ),
-              ),
-              SizedBox(height: 30,),
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 203, 67, 25),
-                      foregroundColor: Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7))),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BottomNav()));
-                  },
-                  child: const Text(
-                    "Return to Home Page",
-                    style: TextStyle(fontSize: 20),
+                  'Order ID: ${order['OrderID']}',
+                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),
+                ),),
+                const SizedBox(
+                    height: 20,
                   ),
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "\t\t\t\tYour order is being prepared!!! \n\t\t\t\tShow your OrderID at counter",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  SizedBox(height: 30,),
+                  SizedBox(
+              height: 50,
+              width: double.maxFinite,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 203, 67, 25),
+                    foregroundColor: Color.fromARGB(255, 255, 255, 255),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7))),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BottomNav()));
+                },
+                child: const Text(
+                  "Return to Home Page",
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
-              
-              
-            ],
-          ),
-        ),
+            ),
+            
+              ]);
+            
+          
+        },
       ),
-    ));
+    );
   }
 }

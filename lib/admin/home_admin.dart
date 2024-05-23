@@ -17,6 +17,7 @@ class HomeAdmin extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                const SizedBox(height: 70.0),
                 Text(
                   "Navrachana Canteen",
                   style: TextStyle(
@@ -24,6 +25,7 @@ class HomeAdmin extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 70.0),
                 Image.asset(
                   "images/nuvLogo.png",
                   height: 60,
@@ -32,9 +34,9 @@ class HomeAdmin extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 50.0),
+            const SizedBox(height: 70.0),
             buildMenuCard(
-              image: "images/food.jpg",
+              image: "images/add_food.jpeg",
               title: "+ Add Food Items",
               onPressed: () {
                 Navigator.push(
@@ -43,9 +45,9 @@ class HomeAdmin extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 30.0),
+            const SizedBox(height: 40.0),
             buildMenuCard(
-              image: "images/food.jpg",
+              image: "images/menu.jpg",
               title: "View Menu Card",
               onPressed: () {
                 Navigator.push(

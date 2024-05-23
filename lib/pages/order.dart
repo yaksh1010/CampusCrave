@@ -1,36 +1,34 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:campuscrave/pages/success.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:campuscrave/services/database.dart';
 import 'package:campuscrave/services/shared_pref.dart';
 import 'package:campuscrave/widgets/widget_support.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'success.dart';
 
 class Order extends StatefulWidget {
-  const Order({super.key});
+  const Order({Key? key}) : super(key: key);
 
   @override
   State<Order> createState() => _OrderState();
 }
+class GenerateCode {
+  late String code;
 
-class Order1 {
-  late String order_no;
-
-  Order1() {
+  GenerateCode() {
     var random = Random();
-    order_no = 'order_${random.nextInt(100)}';
+    code = '${random.nextInt(9000)}';
   }
 }
 
 class _OrderState extends State<Order> {
   String? id;
   int total = 0;
-  var random = Random();
-  //var order_no = 0;
   var _razorpay = Razorpay();
+  late String orderCode; // Store the order code
 
   void startTimer() {
     Timer(const Duration(seconds: 1), () {
@@ -60,8 +58,12 @@ class _OrderState extends State<Order> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    Get.to(Success());
-    // Do something when payment succeeds
+    // Place the order when payment succeeds
+    placeOrder(orderCode); 
+        GenerateCode();
+// Pass the order code
+    Get.to(
+        Success(userId: id!, orderCode: orderCode)); // Pass the order code to Success page
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -72,7 +74,7 @@ class _OrderState extends State<Order> {
     // Do something when an external wallet is selected
   }
 
-  //really needed ??
+  @override
   void dispose() {
     super.dispose();
     _razorpay.clear(); // Removes all listeners
@@ -115,7 +117,6 @@ class _OrderState extends State<Order> {
                                 IconButton(
                                   onPressed: () {
                                     // Decrement action
-                                  //  _decrementQuantity(ds["Name"]);
                                   },
                                   icon: Icon(Icons.remove),
                                 ),
@@ -133,7 +134,6 @@ class _OrderState extends State<Order> {
                                 IconButton(
                                   onPressed: () {
                                     // Increment action
-                                  //  _incrementQuantity(ds["Name"]);
                                   },
                                   icon: Icon(Icons.add),
                                 ),
@@ -167,7 +167,6 @@ class _OrderState extends State<Order> {
                             IconButton(
                               onPressed: () {
                                 // Delete action
-                               //_deleteItem(ds["Name"]);
                               },
                               icon: Icon(Icons.delete),
                             ),
@@ -229,35 +228,29 @@ class _OrderState extends State<Order> {
             ),
             GestureDetector(
               onTap: () {
-                //razorpay
-                var order = Order1();
+                // Initiate Razorpay payment
+                orderCode =
+                    '${Random().nextInt(9999)}'; // Generate order code
                 var options = {
                   'key': 'rzp_test_YX11pZyfLyoM43',
-                  'amount':(total / 2) * 100, //in the smallest currency sub-unit.
+                  'amount':
+                      (total / 2) * 100, // Amount in smallest currency unit
                   'name': 'Canteen',
                   'order': {
-                    "id": order.order_no,
+                    "id": orderCode,
                     "entity": "order",
                     "amount_paid": 0,
                     "amount_due": 0,
                     "currency": "INR",
-                    "receipt": "Receipt ${Random().nextInt(10)} ",
+                    "receipt": "Receipt ${Random().nextInt(10)}",
                     "status": "created",
                     "attempts": 0,
                     "notes": [],
                     "created_at": 1566986570
-                  }, // Generate order_id using Orders API
+                  },
                   'description': 'Quick Food',
-                  //'timeout': 60, // in seconds
-                  // 'prefill': {
-                  //   'contact': '9000090000',
-                  //   'email': 'gaurav.kumar@example.com'
-                  // }
                 };
                 _razorpay.open(options);
-
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) =>  Success()));
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -282,13 +275,31 @@ class _OrderState extends State<Order> {
       ),
     );
   }
+var code1 = GenerateCode();
+
+  // Function to place the order
+  void placeOrder(String orderCode) async {
+    if (id != null) {
+      var items = <Map<String, dynamic>>[];
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(id!)
+          .collection("Cart")
+          .get()
+          .then((querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          items.add({
+            'itemName': doc['Name'],
+            'quantity': doc['Quantity'],
+            'total': doc['Total'],
+            // Add more fields as needed
+          });
+        });
+      });
+
+      if (items.isNotEmpty) {
+        await DatabaseMethods().placeOrder(id!, orderCode, total, items, code1.code);
+      }
+    }
+  }
 }
-
-
-//rzp_test_aImtYs22ddJrld - test id
-
-//KXpfHLZFjZPeb4dLgiiO5Qv8 - test secret
-
-//deep razor
-// rzp_test_YX11pZyfLyoM43
-//ctnB3I8EXIgztmoQjeoru8K0
