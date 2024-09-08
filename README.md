@@ -1,1 +1,1 @@
-# MinorProject
+# CampusCrave
