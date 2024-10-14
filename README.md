@@ -62,16 +62,16 @@ Please ensure that your code follows the project's style guidelines and that you
 
 ## Screenshots
 
-<img width="475" alt="Screenshot 2024-10-14 at 7 11 35 PM" src="https://github.com/user-attachments/assets/d04031bf-de20-4503-a3e6-98c1e4c5a74c">
-<img width="475" alt="Screenshot 2024-10-14 at 7 11 50 PM" src="https://github.com/user-attachments/assets/10b5d248-310b-4d33-af4a-8c90e935b9bf">
-<img width="475" alt="Screenshot 2024-10-14 at 7 10 53 PM" src="https://github.com/user-attachments/assets/d2f8f5fb-51af-4128-a622-7db5585cca70">
-<img width="475" alt="Screenshot 2024-10-14 at 7 10 37 PM" src="https://github.com/user-attachments/assets/85645b39-b7a5-489f-a756-0a9f4ec2e2fe">
-<img width="475" alt="Screenshot 2024-10-14 at 7 10 29 PM" src="https://github.com/user-attachments/assets/89c5a6de-519f-47bc-8c48-8bbfc5abfef0">
-<img width="475" alt="Screenshot 2024-10-14 at 7 10 23 PM" src="https://github.com/user-attachments/assets/8f58971a-debe-436b-a8f5-f2b156895919">
-<img width="475" alt="Screenshot 2024-10-14 at 7 10 18 PM" src="https://github.com/user-attachments/assets/e08ce13c-4a88-4ec7-83d8-5da08d0b9810">
-<img width="431" alt="Screenshot 2024-10-14 at 7 10 06 PM" src="https://github.com/user-attachments/assets/348983f4-920e-4f5a-a54d-22bec0ee038c">
-<img width="475" alt="Screenshot 2024-10-14 at 7 12 19 PM" src="https://github.com/user-attachments/assets/7752b16c-0513-4e53-9dcb-763b831b91b4">
-<img width="475" alt="Screenshot 2024-10-14 at 7 12 07 PM" src="https://github.com/user-attachments/assets/7e90e259-3e62-46db-8c1c-593326fad44b">
+<img width="431" alt="1" src="https://github.com/user-attachments/assets/0dae400d-7dae-4545-b91a-69ddf8f8b05f">
+<img width="475" alt="2" src="https://github.com/user-attachments/assets/ca7fec85-91ca-434c-a390-d101a19cca15">
+<img width="475" alt="3" src="https://github.com/user-attachments/assets/4a503a12-5fee-4df2-8bf7-8eaeed7253ec">
+<img width="475" alt="4" src="https://github.com/user-attachments/assets/f0eb2c17-1b3e-4a60-b57b-dfa76bd02f33">
+<img width="475" alt="5" src="https://github.com/user-attachments/assets/8febb603-af80-47e0-a0d6-54021ac10d23">
+<img width="475" alt="6" src="https://github.com/user-attachments/assets/c8e81cdb-24ed-4a73-9a6e-8f554dcd020e">
+<img width="475" alt="7" src="https://github.com/user-attachments/assets/f4e7f6ba-ad4d-4bcd-a923-ea3bb932db27">
+<img width="475" alt="8" src="https://github.com/user-attachments/assets/f3114fd8-74af-4ef8-af02-4c0f51afedc3">
+<img width="475" alt="9" src="https://github.com/user-attachments/assets/5878ac46-947f-481e-ad21-24ecd4c32cb3">
+<img width="475" alt="10" src="https://github.com/user-attachments/assets/a7174dbb-0f21-495a-872d-6ea743d8812c">
 
 ## License
 
