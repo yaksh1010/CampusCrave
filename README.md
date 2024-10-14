@@ -73,9 +73,6 @@ Please ensure that your code follows the project's style guidelines and that you
 <img width="475" alt="9" src="https://github.com/user-attachments/assets/5878ac46-947f-481e-ad21-24ecd4c32cb3">
 <img width="475" alt="10" src="https://github.com/user-attachments/assets/a7174dbb-0f21-495a-872d-6ea743d8812c">
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
