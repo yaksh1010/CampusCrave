@@ -49,18 +49,6 @@ To run this project locally, follow these steps:
    flutter run
    ```
 
-## Project Structure
-
-```plaintext
-lib/
-|-- main.dart          # Main entry point of the app
-|-- screens/           # Contains UI screens like home, menu, order history, etc.
-|-- models/            # Data models used in the app
-|-- services/          # Firebase services and API integration
-|-- widgets/           # Custom widgets for UI
-|-- utils/             # Utility functions and constants
-```
-
 ## Contributing
 
 We welcome contributions from the community! To contribute to CampusCrave:
