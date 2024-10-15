@@ -26,7 +26,7 @@ To run this project locally, follow these steps:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/CampusCrave.git
+   git clone https://github.com/yaksh1010/CampusCrave.git
    cd CampusCrave
    ```
 
