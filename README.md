@@ -1,6 +1,7 @@
 
 # CampusCrave
-<img width="933" alt="Project1" src="https://github.com/user-attachments/assets/c1017512-f5aa-485f-ab7a-c799e7a4e4dd">
+<img width="1021" alt="CampusCrave" src="https://github.com/user-attachments/assets/7f10c77a-51a1-4df9-91da-9581dbd743b9">
+
 
 CampusCrave is a versatile cross-platform Flutter app designed for canteen food ordering on campuses. It provides a seamless user experience for ordering and purchasing food items, making it easier for students and staff to access canteen services. The app integrates Firebase for real-time database management, ensuring a smooth ordering process.
 
@@ -70,6 +71,8 @@ Please ensure that your code follows the project's style guidelines and that you
 <img width="475" alt="6" src="https://github.com/user-attachments/assets/c8e81cdb-24ed-4a73-9a6e-8f554dcd020e">
 <img width="475" alt="7" src="https://github.com/user-attachments/assets/f4e7f6ba-ad4d-4bcd-a923-ea3bb932db27">
 <img width="475" alt="8" src="https://github.com/user-attachments/assets/f3114fd8-74af-4ef8-af02-4c0f51afedc3">
+<img width="475" alt="12" src="https://github.com/user-attachments/assets/1b72eb19-f142-4c44-8ced-4d9927468097">
+<img width="475" alt="11" src="https://github.com/user-attachments/assets/c5a377ae-b333-402d-a627-ea703793b216">
 <img width="475" alt="9" src="https://github.com/user-attachments/assets/5878ac46-947f-481e-ad21-24ecd4c32cb3">
 <img width="475" alt="10" src="https://github.com/user-attachments/assets/a7174dbb-0f21-495a-872d-6ea743d8812c">
 
